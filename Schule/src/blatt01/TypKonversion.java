@@ -21,6 +21,7 @@ public class TypKonversion {
         System.out.println(h);
 
         /*
+
         boolean t = true;
         h = (char) t;
 
