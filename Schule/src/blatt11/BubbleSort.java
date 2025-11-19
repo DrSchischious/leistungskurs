@@ -29,6 +29,7 @@ public class BubbleSort {
                 System.out.print("| ");
             }
         }
+        System.out.println();
     }
 
     public static void printArray(boolean[] arr) {
@@ -42,6 +43,7 @@ public class BubbleSort {
                 System.out.print("| ");
             }
         }
+        System.out.println();
     }
 
     public static void printArray(byte[] arr) {
@@ -55,6 +57,7 @@ public class BubbleSort {
                 System.out.print("| ");
             }
         }
+        System.out.println();
     }
 
     public static int[] randomArray(int l) {

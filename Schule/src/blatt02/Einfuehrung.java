@@ -2,7 +2,7 @@ package blatt02;
 
 import java.util.Scanner;
 
-public class Einführung {
+public class Einfuehrung {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.println("Wie heißt du?");
