@@ -138,12 +138,12 @@ public class DNA {
         String dna = "ATGCTA";
         System.out.println(istDNA(dna));
         byte[] dnab = zuDNA(dna);
-        blatt11.BubbleSort.printArray(dnab);
+        blatt07.ArbeitMitArrays.printArray(dnab);
         System.out.println();
         String dnad = zuDNA(dnab);
         System.out.println(dnad);
         boolean[] bool = zuDNA_Bool(dna);
-        blatt11.BubbleSort.printArray(bool);
+        blatt07.ArbeitMitArrays.printArray(bool);
 
     }
 }

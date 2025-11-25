@@ -41,7 +41,7 @@ public class Teiler {
     }
 
     public static void main(String[] args) {
-        blatt11.BubbleSort.printArray(teiler(10));
+        blatt07.ArbeitMitArrays.printArray(teiler(10));
     }
 
 }

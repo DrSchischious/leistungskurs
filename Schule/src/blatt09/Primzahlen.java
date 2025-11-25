@@ -63,7 +63,7 @@ public class Primzahlen {
 
     public static void main(String[] args) {
         printPrim(40);
-        blatt11.BubbleSort.printArray(generierePrimzahlen(10));
+        blatt07.ArbeitMitArrays.printArray(generierePrimzahlen(10));
         System.out.println();
         primfaktorzerlegung(124);
     }

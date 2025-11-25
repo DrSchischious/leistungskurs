@@ -20,9 +20,9 @@ public class InsertionSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = blatt11.BubbleSort.randomArray(40);
-        blatt11.BubbleSort.printArray(arr);
+        int[] arr = blatt07.ArbeitMitArrays.randomArray(40);
+        blatt07.ArbeitMitArrays.printArray(arr);
         arr = insertionSort(arr);
-        blatt11.BubbleSort.printArray(arr);
+        blatt07.ArbeitMitArrays.printArray(arr);
     }
 }

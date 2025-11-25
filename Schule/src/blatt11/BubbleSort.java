@@ -18,64 +18,15 @@ public class BubbleSort {
         }
     }
 
-    public static void printArray(int[] arr) {
-        System.out.print("[ ");
-        for (int i = 0; i < arr.length; i++) {
-
-            System.out.print(arr[i] + " ");
-            if (i == arr.length-1) {
-                System.out.print("]");
-            } else {
-                System.out.print("| ");
-            }
-        }
-        System.out.println();
-    }
-
-    public static void printArray(boolean[] arr) {
-        System.out.print("[ ");
-        for (int i = 0; i < arr.length; i++) {
-
-            System.out.print(arr[i] + " ");
-            if (i == arr.length-1) {
-                System.out.print("]");
-            } else {
-                System.out.print("| ");
-            }
-        }
-        System.out.println();
-    }
-
-    public static void printArray(byte[] arr) {
-        System.out.print("[ ");
-        for (int i = 0; i < arr.length; i++) {
-
-            System.out.print(arr[i] + " ");
-            if (i == arr.length-1) {
-                System.out.print("]");
-            } else {
-                System.out.print("| ");
-            }
-        }
-        System.out.println();
-    }
-
-    public static int[] randomArray(int l) {
-        int[] arr = new int[l];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = (int)(Math.random()*100 - 50);
-        }
-        return arr;
-    }
 
 
 
     public static void main(String[] args) {
-        int[] arr = randomArray(15);
-        printArray(arr);
+        int[] arr = blatt07.ArbeitMitArrays.randomArray(15);
+        blatt07.ArbeitMitArrays.printArray(arr);
         bubbleSort(arr);
         System.out.println();
-        printArray(arr);
+        blatt07.ArbeitMitArrays.printArray(arr);
 
     }
 }

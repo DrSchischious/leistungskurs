@@ -28,6 +28,6 @@ public class Zufall {
 
     public static void main(String[] args) {
         int[] arr = zufallArray(20, 4, 9);
-        blatt11.BubbleSort.printArray(arr);
+        blatt07.ArbeitMitArrays.printArray(arr);
     }
 }
