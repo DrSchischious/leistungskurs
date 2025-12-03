@@ -22,5 +22,6 @@ public class Klammernsprache {
                 return false;
             }
         }
+        return true;
     }
 }
