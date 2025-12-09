@@ -3,7 +3,7 @@ package blatt13;
 public class Zufall {
 
     public static double zufall(int b) {
-        return Math.random()*(b+1);
+        return Math.random()*b;
     }
 
     public static int zufallGanz(int b) {
@@ -11,7 +11,7 @@ public class Zufall {
     }
 
     public static double zufall(int a, int b) {
-        return (Math.random()*(b-a+1))+a;
+        return (Math.random()*(b-a))+a;
     }
 
     public static int zufallGanz(int a, int b) {
