@@ -47,7 +47,6 @@ public class PenAndPaper {
         } else {
             return false;
         }
-
     }
 
     public static int angriff(int n, int x, boolean vorteil, boolean nachteil, int bonus, int klasse, boolean treffer) {

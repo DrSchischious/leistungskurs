@@ -22,5 +22,9 @@ public class Klammernsprache {
                 return false;
             }
         }
+        if (w == 0) {
+            return true;
+        }
+        return false;
     }
 }
