@@ -15,7 +15,7 @@ public class Zufall {
     }
 
     public static int zufallGanz(int a, int b) {
-        return (int)zufall(a,b);
+        return (int)((Math.random()*(b-a+1))+a);
     }
 
     public static int[] zufallArray(int l, int a, int b) {
