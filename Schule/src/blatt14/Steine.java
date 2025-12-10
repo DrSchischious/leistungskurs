@@ -118,17 +118,228 @@ public class Steine {
             } else {
                 return false;
             }
-        }
-
-        if (feld[x][0] == ' ' && feld[x][1] == ' ' && feld[x+1][0] == ' ' && feld[x+1][1] == ' ') {
-            feld[x][0] = '5';
-            feld[x][1] = '5';
-            feld[x+1][0] = '5';
-            feld[x+1][1] = '5';
-            return true;
         } else {
             return false;
         }
+
+
+    }
+
+    public static boolean zeichneS(char[][] feld, int x, int d) {
+        if (x < 0 || x > 9) {
+            return false;
+        }
+        if (d == 0) {
+            //Waagerecht
+            if (x > 7) {
+                return false;
+            }
+            if (feld[x][1] == ' ' && feld[x+1][1] == ' ' && feld[x+1][0] == ' ' && feld[x+2][0] == ' ') {
+                feld[x][1] = 'B';
+                feld[x+1][1] = 'B';
+                feld[x+1][0] = 'B';
+                feld[x+2][0] = 'B';
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            //Senkrecht
+            if (x > 8) {
+                return false;
+            }
+            if (feld[x][0] == ' ' && feld[x][1] == ' ' && feld[x+1][1] == ' ' && feld[x+1][2] == ' ') {
+                feld[x][0] = 'B';
+                feld[x][1] = 'B';
+                feld[x][2] = 'B';
+                feld[x+1][1] = 'B';
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public static boolean zeichneZ(char[][] feld, int x, int d) {
+        if (x < 0 || x > 9) {
+            return false;
+        }
+        if (d == 0) {
+            //Waagerecht
+            if (x > 7) {
+                return false;
+            }
+            if (feld[x][0] == ' ' && feld[x+1][0] == ' ' && feld[x+1][1] == ' ' && feld[x+2][1] == ' ') {
+                feld[x][0] = 'F';
+                feld[x+1][0] = 'F';
+                feld[x+1][1] = 'F';
+                feld[x+2][1] = 'F';
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+            //Senkrecht
+            if (x > 8) {
+                return false;
+            }
+            if (feld[x+1][0] == ' ' && feld[x+1][1] == ' ' && feld[x][1] == ' ' && feld[x][2] == ' ') {
+                feld[x+1][0] = 'F';
+                feld[x+1][1] = 'F';
+                feld[x][1] = 'F';
+                feld[x][2] = 'F';
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public static boolean zeichneJ(char[][] feld, int x, int d) {
+        if (x < 0 || x > 9) {
+            return false;
+        }
+        if (d == 0) {
+            //Waagerecht
+            if (x > 7) {
+                return false;
+            }
+            if (feld[x][0] == ' ' && feld[x][1] == ' ' && feld[x+1][1] == ' ' && feld[x+2][1] == ' ') {
+                feld[x][0] = '2';
+                feld[x+1][0] = '2';
+                feld[x+1][1] = '2';
+                feld[x+2][1] = '2';
+                return true;
+            } else {
+                return false;
+            }
+
+        } else if (d == 1) {
+            //Senkrecht
+            if (x > 8) {
+                return false;
+            }
+            if (feld[x+1][0] == ' ' && feld[x+1][1] == ' ' && feld[x+1][2] == ' ' && feld[x][2] == ' ') {
+                feld[x+1][0] = '2';
+                feld[x+1][1] = '2';
+                feld[x+1][2] = '2';
+                feld[x][2] = '2';
+                return true;
+            } else {
+                return false;
+            }
+        } else if (d == 2) {
+            //Senkrecht
+            if (x > 7) {
+                return false;
+            }
+            if (feld[x][0] == ' ' && feld[x+1][0] == ' ' && feld[x+2][0] == ' ' && feld[x+2][1] == ' ') {
+                feld[x][0] = '2';
+                feld[x+1][0] = '2';
+                feld[x+2][0] = '2';
+                feld[x+2][1] = '2';
+                return true;
+            } else {
+                return false;
+            }
+        } else if (d == 3) {
+            //Senkrecht
+            if (x > 8) {
+                return false;
+            }
+            if (feld[x][0] == ' ' && feld[x+1][0] == ' ' && feld[x][1] == ' ' && feld[x][2] == ' ') {
+                feld[x][0] = '2';
+                feld[x+1][0] = '2';
+                feld[x][1] = '2';
+                feld[x][2] = '2';
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean zeichneL(char[][] feld, int x, int d) {
+        if (x < 0 || x > 9) {
+            return false;
+        }
+        if (d == 0) {
+            //Waagerecht
+            if (x > 7) {
+                return false;
+            }
+            if (feld[x][1] == ' ' && feld[x+1][1] == ' ' && feld[x+2][1] == ' ' && feld[x+2][0] == ' ') {
+                feld[x][1] = 'A';
+                feld[x+1][1] = 'A';
+                feld[x+2][1] = 'A';
+                feld[x+2][0] = 'A';
+                return true;
+            } else {
+                return false;
+            }
+
+        } else if (d == 1) {
+            //Senkrecht
+            if (x > 8) {
+                return false;
+            }
+            if (feld[x][0] == ' ' && feld[x][1] == ' ' && feld[x][2] == ' ' && feld[x+1][2] == ' ') {
+                feld[x][0] = 'A';
+                feld[x][1] = 'A';
+                feld[x][2] = 'A';
+                feld[x+1][2] = 'A';
+                return true;
+            } else {
+                return false;
+            }
+        } else if (d == 2) {
+            //Senkrecht
+            if (x > 7) {
+                return false;
+            }
+            if (feld[x][0] == ' ' && feld[x+1][0] == ' ' && feld[x+2][0] == ' ' && feld[x][1] == ' ') {
+                feld[x][0] = 'A';
+                feld[x+1][0] = 'A';
+                feld[x+2][0] = 'A';
+                feld[x][1] = 'A';
+                return true;
+            } else {
+                return false;
+            }
+        } else if (d == 3) {
+            //Senkrecht
+            if (x > 8) {
+                return false;
+            }
+            if (feld[x][0] == ' ' && feld[x+1][0] == ' ' && feld[x+1][1] == ' ' && feld[x+1][2] == ' ') {
+                feld[x][0] = 'A';
+                feld[x+1][0] = 'A';
+                feld[x+1][1] = 'A';
+                feld[x+1][2] = 'A';
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Simuliert einen Schritt bei Tetris.
+     * @param feld Spielfeld im aktuellen Zustand
+     */
+    public static void fall(char[][] feld) {
+        //Schritt 1: Kopiere Spielfeld
+
+        //Schritt 2: Durchlaufe einen Schritt
+
+        //Schritt 3: Falls Konflikt, melde diesen Zurück, ansonsten akzeptiere verändertes Feld.
+
     }
 
 
