@@ -104,5 +104,6 @@ public class MultiArrays {
 
     public static void main(String[] args) {
         print2DArray(createRandom2DDoubleArray(10,10));
+        System.out.println("Ich mag Züge\n\nTUUUUUUT TUUUUUUUUT");
     }
 }

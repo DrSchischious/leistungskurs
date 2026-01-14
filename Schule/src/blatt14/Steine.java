@@ -530,7 +530,6 @@ public class Steine {
         switch(i) {
             case 1:
                 d = Zufall.zufallGanz(0,1);
-
                 if (d == 0) {
                     x = Zufall.zufallGanz(0,9);
                 } else {

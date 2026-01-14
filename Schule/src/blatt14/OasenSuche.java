@@ -54,12 +54,13 @@ public class OasenSuche {
 
 
 
-
+                int c = Simulationen.zaehlenVier(spielfeld,pos[0],pos[1],'4',true);
+                c = c + Simulationen.zaehlenVier(spielfeld,pos[0],pos[1],'A',true);
                 int z = blatt13.Zufall.zufallGanz(1,5);
                 //System.out.println(z);
                 if (z == 1) {
                     //Norden
-                    if (Simulationen.getNorden(spielfeld,pos[0],pos[1],true) == ' ' || ((count >= 4 && Simulationen.getNorden(spielfeld,pos[0],pos[1],true) == '4'))) {
+                    if (Simulationen.getNorden(spielfeld,pos[0],pos[1],true) == ' ' || ((count >= 4 && Simulationen.getNorden(spielfeld,pos[0],pos[1],true) == '4')) || c == 4) {
                         spielfeld[pos[0]][pos[1]] = '4';
                         if (pos[1] == 0) {
                             spielfeld[pos[0]][spielfeld[pos[0]].length-1] = 'P';
@@ -73,7 +74,7 @@ public class OasenSuche {
                 } else if (z == 2) {
                     //Osten
 
-                    if (Simulationen.getOsten(spielfeld,pos[0],pos[1],true) == ' ' || ((count >= 4 && Simulationen.getOsten(spielfeld,pos[0],pos[1],true) == '4'))) {
+                    if (Simulationen.getOsten(spielfeld,pos[0],pos[1],true) == ' ' || ((count >= 4 && Simulationen.getOsten(spielfeld,pos[0],pos[1],true) == '4')) || c == 4) {
                         spielfeld[pos[0]][pos[1]] = '4';
                         if (pos[0] == spielfeld.length - 1) {
                             spielfeld[0][pos[1]] = 'P';
@@ -88,7 +89,7 @@ public class OasenSuche {
                 } else if (z == 3) {
                     //Sueden
 
-                    if (Simulationen.getSueden(spielfeld,pos[0],pos[1],true) == ' ' || ((count >= 4 && Simulationen.getSueden(spielfeld,pos[0],pos[1],true) == '4'))) {
+                    if (Simulationen.getSueden(spielfeld,pos[0],pos[1],true) == ' ' || ((count >= 4 && Simulationen.getSueden(spielfeld,pos[0],pos[1],true) == '4')) || c == 4) {
                         spielfeld[pos[0]][pos[1]] = '4';
                         if (pos[1] == spielfeld[0].length - 1) {
                             spielfeld[pos[0]][0] = 'P';
@@ -101,7 +102,7 @@ public class OasenSuche {
                     }
                 } else {
                     //Westen
-                    if (Simulationen.getWesten(spielfeld,pos[0],pos[1],true) == ' ' || ((count >= 4 && Simulationen.getWesten(spielfeld,pos[0],pos[1],true) == '4'))) {
+                    if (Simulationen.getWesten(spielfeld,pos[0],pos[1],true) == ' ' || ((count >= 4 && Simulationen.getWesten(spielfeld,pos[0],pos[1],true) == '4')) || c == 4) {
                         spielfeld[pos[0]][pos[1]] = '4';
                         if (pos[0] == 0) {
                             spielfeld[spielfeld[pos[0]].length-1][pos[1]] = 'P';
@@ -128,14 +129,14 @@ public class OasenSuche {
 
     public static void main(String[] args) {
         SchischVisualizer sv = new SchischVisualizer();
-        initialisiereSpielfeld(60,60);
+        initialisiereSpielfeld(100,100);
         zufallsPositionSpieler();
         sv.step(spielfeld);
-        wasserZufall(0.001);
+        wasserZufall(0.01);
         sv.step(spielfeld);
-        steinZufall(0.10);
+        steinZufall(0.1);
         sv.step(spielfeld);
-        findeWasser(sv, 500);
+        findeWasser(sv, 75);
         sv.start();
     }
 }
