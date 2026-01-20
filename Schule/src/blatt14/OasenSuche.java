@@ -129,12 +129,12 @@ public class OasenSuche {
 
     public static void main(String[] args) {
         SchischVisualizer sv = new SchischVisualizer();
-        initialisiereSpielfeld(100,100);
+        initialisiereSpielfeld(60,60);
         zufallsPositionSpieler();
         sv.step(spielfeld);
-        wasserZufall(0.01);
+        wasserZufall(0.03);
         sv.step(spielfeld);
-        steinZufall(0.1);
+        steinZufall(0.80);
         sv.step(spielfeld);
         findeWasser(sv, 75);
         sv.start();

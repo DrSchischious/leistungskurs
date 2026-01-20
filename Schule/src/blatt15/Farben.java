@@ -2,6 +2,7 @@ package blatt15;
 
 import blatt13.Zufall;
 import blatt14.MultiArrays;
+import blatt14.Simulationen;
 import schisch_visualizer.SchischVisualizer;
 
 public class Farben {
@@ -187,18 +188,929 @@ public class Farben {
         }
     }
 
-    public static void main(String[] args) {
+    public static void zugEins(int spieler) {
+
+        //Check around
+        int x = spielerPosX[spieler];
+        int y = spielerPosY[spieler];
+
+        int[] directions = new int[4];
+        int k = 1;
+        while (true) {
+
+            int pos = Zufall.zufallGanz(0,3);
+            if (directions[pos] == 0) {
+                directions[pos] = k;
+                k++;
+            }
+
+            if (k == 5) {
+                break;
+            }
+        }
+
+        int team = 0;
+        if (spieler < 4) {
+            team = 1;
+        } else {
+            team = 2;
+        }
+
+        boolean done = false;
+
+
+        if (spieler%4 == 0 || spieler%4 == 1) {
+            //Taktik für zwei Spieler
+
+
+            //if enemy one field around, attack
+            for (int j = 0; j < directions.length; j++) {
+                if (directions[j] == 1) {
+                    //North
+                    if (Simulationen.getNorden(spielfeld,x,y,false) == 'P' && done == false) {
+                        //Check if Enemy
+                        int cx = x;
+                        int cy = y-1;
+                        for (int i = 0; i < 8; i++) {
+                            if (spielerPosX[i] == cx && spielerPosY[i] == cy) {
+                                if ((team == 1 && i < 4) || (team == 2 && i >= 4)) {
+                                    //Mein Team
+                                } else {
+                                    //GEGNER
+                                    if (team == 1) {
+                                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                                    } else {
+                                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                                    }
+
+                                    spielerPosX[spieler] = cx;
+                                    spielerPosY[spieler] = cy;
+                                    spielerPosX[i] = -1;
+                                    spielerPosY[i] = -1;
+
+                                    done = true;
+                                }
+
+                            }
+                        }
+                    }
+
+                } else if (directions[j] == 2) {
+                    //East
+                    if (Simulationen.getOsten(spielfeld,x,y,false) == 'P' && done == false) {
+                        //Check if Enemy
+                        int cx = x+1;
+                        int cy = y;
+                        for (int i = 0; i < 8; i++) {
+                            if (spielerPosX[i] == cx && spielerPosY[i] == cy) {
+                                if ((team == 1 && i < 4) || (team == 2 && i >= 4)) {
+                                    //Mein Team
+                                } else {
+                                    //GEGNER
+                                    if (team == 1) {
+                                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                                    } else {
+                                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                                    }
+
+                                    spielerPosX[spieler] = cx;
+                                    spielerPosY[spieler] = cy;
+                                    spielerPosX[i] = -1;
+                                    spielerPosY[i] = -1;
+
+                                    done = true;
+                                }
+
+                            }
+                        }
+                    }
+
+                } else if (directions[j] == 3) {
+                    //South
+                    if (Simulationen.getSueden(spielfeld,x,y,false) == 'P' && done == false) {
+                        //Check if Enemy
+                        int cx = x;
+                        int cy = y+1;
+                        for (int i = 0; i < 8; i++) {
+                            if (spielerPosX[i] == cx && spielerPosY[i] == cy) {
+                                if ((team == 1 && i < 4) || (team == 2 && i >= 4)) {
+                                    //Mein Team
+                                } else {
+                                    //GEGNER
+                                    if (team == 1) {
+                                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                                    } else {
+                                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                                    }
+
+                                    spielerPosX[spieler] = cx;
+                                    spielerPosY[spieler] = cy;
+                                    spielerPosX[i] = -1;
+                                    spielerPosY[i] = -1;
+
+                                    done = true;
+                                }
+
+                            }
+                        }
+                    }
+
+                } else if (directions[j] == 4) {
+                    //West
+                    if (Simulationen.getWesten(spielfeld,x,y,false) == 'P' && done == false) {
+                        //Check if Enemy
+                        int cx = x-1;
+                        int cy = y;
+                        for (int i = 0; i < 8; i++) {
+                            if (spielerPosX[i] == cx && spielerPosY[i] == cy) {
+                                if ((team == 1 && i < 4) || (team == 2 && i >= 4)) {
+                                    //Mein Team
+                                } else {
+                                    //GEGNER
+                                    if (team == 1) {
+                                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                                    } else {
+                                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                                    }
+
+                                    spielerPosX[spieler] = cx;
+                                    spielerPosY[spieler] = cy;
+                                    spielerPosX[i] = -1;
+                                    spielerPosY[i] = -1;
+
+                                    done = true;
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+            }
+
+
+
+
+
+
+
+            //if no enemy is around go ahead and check for enemy field
+            for (int j = 0; j < directions.length; j++) {
+                if (directions[j] == 1) {
+                    //North
+                    if (done == false && ((Simulationen.getNorden(spielfeld,x,y,false) == FARBE1 && team == 2) || (Simulationen.getNorden(spielfeld,x,y,false) == FARBE2 && team == 1))) {
+                        //Attack
+
+                        if (team == 1) {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                        } else {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                        }
+
+                        spielerPosX[spieler] = x;
+                        spielerPosY[spieler] = y-1;
+                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                        done = true;
+                    }
+                } else if (directions[j] == 2) {
+                    //East
+                    if (done == false && ((Simulationen.getOsten(spielfeld,x,y,false) == FARBE1 && team == 2) || (Simulationen.getOsten(spielfeld,x,y,false) == FARBE2 && team == 1))) {
+                        //Attack
+
+                        if (team == 1) {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                        } else {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                        }
+
+                        spielerPosX[spieler] = x+1;
+                        spielerPosY[spieler] = y;
+                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                        done = true;
+                    }
+
+                } else if (directions[j] == 3) {
+                    //South
+                    if (done == false && ((Simulationen.getSueden(spielfeld,x,y,false) == FARBE1 && team == 2) || (Simulationen.getSueden(spielfeld,x,y,false) == FARBE2 && team == 1))) {
+                        //Attack
+
+                        if (team == 1) {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                        } else {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                        }
+
+                        spielerPosX[spieler] = x;
+                        spielerPosY[spieler] = y+1;
+                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                        done = true;
+                    }
+
+                } else if (directions[j] == 4) {
+                    //West
+                    if (done == false && ((Simulationen.getWesten(spielfeld,x,y,false) == FARBE1 && team == 2) || (Simulationen.getWesten(spielfeld,x,y,false) == FARBE2 && team == 1))) {
+                        //Attack
+
+                        if (team == 1) {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                        } else {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                        }
+
+                        spielerPosX[spieler] = x-1;
+                        spielerPosY[spieler] = y;
+                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                        done = true;
+                    }
+
+                }
+            }
+
+
+            //if no enemy field is around go ahead and check for free field
+            for (int j = 0; j < directions.length; j++) {
+                if (directions[j] == 1) {
+                    //North
+                    if (done == false && Simulationen.getNorden(spielfeld,x,y,false) == ' ') {
+                        //Attack
+
+                        if (team == 1) {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                        } else {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                        }
+
+                        spielerPosX[spieler] = x;
+                        spielerPosY[spieler] = y-1;
+                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                        done = true;
+                    }
+                } else if (directions[j] == 2) {
+                    //East
+                    if (done == false && Simulationen.getOsten(spielfeld,x,y,false) == ' ') {
+                        //Attack
+
+                        if (team == 1) {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                        } else {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                        }
+
+                        spielerPosX[spieler] = x+1;
+                        spielerPosY[spieler] = y;
+                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                        done = true;
+                    }
+                } else if (directions[j] == 3) {
+                    //South
+                    if (done == false && Simulationen.getSueden(spielfeld,x,y,false) == ' ') {
+                        //Attack
+
+                        if (team == 1) {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                        } else {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                        }
+
+                        spielerPosX[spieler] = x;
+                        spielerPosY[spieler] = y+1;
+                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                        done = true;
+                    }
+                } else if (directions[j] == 4) {
+                    //West
+                    if (done == false && Simulationen.getWesten(spielfeld,x,y,false) == ' ') {
+                        //Attack
+
+                        if (team == 1) {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                        } else {
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                        }
+
+                        spielerPosX[spieler] = x-1;
+                        spielerPosY[spieler] = y;
+                        spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                        done = true;
+                    }
+                }
+            }
+
+
+
+
+            //Random!
+            if (done == false) {
+                while (true) {
+                    int dir = Zufall.zufallGanz(1,4);
+                    if (dir == 1) {
+                        if (Simulationen.getNorden(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x;
+                            spielerPosY[spieler] = y-1;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else if (dir == 2) {
+                        if (Simulationen.getOsten(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x+1;
+                            spielerPosY[spieler] = y;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else if (dir == 3) {
+                        if (Simulationen.getSueden(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x;
+                            spielerPosY[spieler] = y+1;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else {
+                        if (Simulationen.getWesten(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x-1;
+                            spielerPosY[spieler] = y;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+
+
+
+
+        } else if (spieler%4 == 2 || spieler%4 == 3) {
+
+            //Random!
+            if (done == false) {
+                while (true) {
+                    int dir = Zufall.zufallGanz(1,4);
+                    if (dir == 1) {
+                        if (Simulationen.getNorden(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x;
+                            spielerPosY[spieler] = y-1;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else if (dir == 2) {
+                        if (Simulationen.getOsten(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x+1;
+                            spielerPosY[spieler] = y;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else if (dir == 3) {
+                        if (Simulationen.getSueden(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x;
+                            spielerPosY[spieler] = y+1;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else {
+                        if (Simulationen.getWesten(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x-1;
+                            spielerPosY[spieler] = y;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+        /*
+        else if (spieler%4 == 3) {
+            //Suche nach Rand, Defensiv
+        }
+
+         */
+    }
+
+    public static void zugZwei(int spieler) {
+        //Check around
+        int x = spielerPosX[spieler];
+        int y = spielerPosY[spieler];
+        int team = 0;
+        if (spieler < 4) {
+            team = 1;
+        } else {
+            team = 2;
+        }
+
+        boolean done = false;
+
+
+        if (spieler%4 == 0 || spieler%4 == 1) {
+            //Taktik für zwei Spieler
+
+            //if enemy one field around, attack
+            if (Simulationen.getNorden(spielfeld,x,y,false) == 'P' && done == false) {
+                //Check if Enemy
+                int cx = x;
+                int cy = y-1;
+                for (int i = 0; i < 8; i++) {
+                    if (spielerPosX[i] == cx && spielerPosY[i] == cy) {
+                        if ((team == 1 && i < 4) || (team == 2 && i >= 4)) {
+                            //Mein Team
+                        } else {
+                            //GEGNER
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = cx;
+                            spielerPosY[spieler] = cy;
+                            spielerPosX[i] = -1;
+                            spielerPosY[i] = -1;
+
+                            done = true;
+                        }
+
+                    }
+                }
+            } else if (Simulationen.getOsten(spielfeld,x,y,false) == 'P' && done == false) {
+                //Check if Enemy
+                int cx = x+1;
+                int cy = y;
+                for (int i = 0; i < 8; i++) {
+                    if (spielerPosX[i] == cx && spielerPosY[i] == cy) {
+                        if ((team == 1 && i < 4) || (team == 2 && i >= 4)) {
+                            //Mein Team
+                        } else {
+                            //GEGNER
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = cx;
+                            spielerPosY[spieler] = cy;
+                            spielerPosX[i] = -1;
+                            spielerPosY[i] = -1;
+
+                            done = true;
+                        }
+
+                    }
+                }
+            } else if (Simulationen.getSueden(spielfeld,x,y,false) == 'P' && done == false) {
+                //Check if Enemy
+                int cx = x;
+                int cy = y+1;
+                for (int i = 0; i < 8; i++) {
+                    if (spielerPosX[i] == cx && spielerPosY[i] == cy) {
+                        if ((team == 1 && i < 4) || (team == 2 && i >= 4)) {
+                            //Mein Team
+                        } else {
+                            //GEGNER
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = cx;
+                            spielerPosY[spieler] = cy;
+                            spielerPosX[i] = -1;
+                            spielerPosY[i] = -1;
+
+                            done = true;
+                        }
+
+                    }
+                }
+            } else if (Simulationen.getWesten(spielfeld,x,y,false) == 'P' && done == false) {
+                //Check if Enemy
+                int cx = x-1;
+                int cy = y;
+                for (int i = 0; i < 8; i++) {
+                    if (spielerPosX[i] == cx && spielerPosY[i] == cy) {
+                        if ((team == 1 && i < 4) || (team == 2 && i >= 4)) {
+                            //Mein Team
+                        } else {
+                            //GEGNER
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = cx;
+                            spielerPosY[spieler] = cy;
+                            spielerPosX[i] = -1;
+                            spielerPosY[i] = -1;
+
+                            done = true;
+                        }
+
+                    }
+                }
+            }
+
+            //if no enemy is around go ahead and check for enemy field
+            if (done == false && ((Simulationen.getNorden(spielfeld,x,y,false) == FARBE1 && team == 2) || (Simulationen.getNorden(spielfeld,x,y,false) == FARBE2 && team == 1))) {
+                //Attack
+
+                if (team == 1) {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                } else {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                }
+
+                spielerPosX[spieler] = x;
+                spielerPosY[spieler] = y-1;
+                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                done = true;
+            } else if (done == false && ((Simulationen.getOsten(spielfeld,x,y,false) == FARBE1 && team == 2) || (Simulationen.getOsten(spielfeld,x,y,false) == FARBE2 && team == 1))) {
+                //Attack
+
+                if (team == 1) {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                } else {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                }
+
+                spielerPosX[spieler] = x+1;
+                spielerPosY[spieler] = y;
+                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                done = true;
+            } else if (done == false && ((Simulationen.getSueden(spielfeld,x,y,false) == FARBE1 && team == 2) || (Simulationen.getSueden(spielfeld,x,y,false) == FARBE2 && team == 1))) {
+                //Attack
+
+                if (team == 1) {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                } else {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                }
+
+                spielerPosX[spieler] = x;
+                spielerPosY[spieler] = y+1;
+                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                done = true;
+            } else if (done == false && ((Simulationen.getWesten(spielfeld,x,y,false) == FARBE1 && team == 2) || (Simulationen.getWesten(spielfeld,x,y,false) == FARBE2 && team == 1))) {
+                //Attack
+
+                if (team == 1) {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                } else {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                }
+
+                spielerPosX[spieler] = x-1;
+                spielerPosY[spieler] = y;
+                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                done = true;
+            }
+
+            //if no enemy field is around go ahead and check for free field
+            if (done == false && Simulationen.getNorden(spielfeld,x,y,false) == ' ') {
+                //Attack
+
+                if (team == 1) {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                } else {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                }
+
+                spielerPosX[spieler] = x;
+                spielerPosY[spieler] = y-1;
+                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                done = true;
+            } else if (done == false && Simulationen.getOsten(spielfeld,x,y,false) == ' ') {
+                //Attack
+
+                if (team == 1) {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                } else {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                }
+
+                spielerPosX[spieler] = x+1;
+                spielerPosY[spieler] = y;
+                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                done = true;
+            } else if (done == false && Simulationen.getSueden(spielfeld,x,y,false) == ' ') {
+                //Attack
+
+                if (team == 1) {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                } else {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                }
+
+                spielerPosX[spieler] = x;
+                spielerPosY[spieler] = y+1;
+                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+
+                done = true;
+            } else if (done == false && Simulationen.getWesten(spielfeld,x,y,false) == ' ') {
+                //Attack
+
+                if (team == 1) {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                } else {
+                    spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                }
+
+                spielerPosX[spieler] = x-1;
+                spielerPosY[spieler] = y;
+                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                done = true;
+            }
+
+
+            //Random!
+            if (done == false) {
+                while (true) {
+                    int dir = Zufall.zufallGanz(1,4);
+                    if (dir == 1) {
+                        if (Simulationen.getNorden(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x;
+                            spielerPosY[spieler] = y-1;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else if (dir == 2) {
+                        if (Simulationen.getOsten(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x+1;
+                            spielerPosY[spieler] = y;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else if (dir == 3) {
+                        if (Simulationen.getSueden(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x;
+                            spielerPosY[spieler] = y+1;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else {
+                        if (Simulationen.getWesten(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x-1;
+                            spielerPosY[spieler] = y;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+
+
+
+
+        } else if (spieler%4 == 2 || spieler%4 == 3) {
+
+            //Random!
+            if (done == false) {
+                while (true) {
+                    int dir = Zufall.zufallGanz(1,4);
+                    if (dir == 1) {
+                        if (Simulationen.getNorden(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x;
+                            spielerPosY[spieler] = y-1;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else if (dir == 2) {
+                        if (Simulationen.getOsten(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x+1;
+                            spielerPosY[spieler] = y;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else if (dir == 3) {
+                        if (Simulationen.getSueden(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x;
+                            spielerPosY[spieler] = y+1;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    } else {
+                        if (Simulationen.getWesten(spielfeld,x,y,false) != WAND) {
+                            if (team == 1) {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE1;
+                            } else {
+                                spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = FARBE2;
+                            }
+
+                            spielerPosX[spieler] = x-1;
+                            spielerPosY[spieler] = y;
+                            spielfeld[spielerPosX[spieler]][spielerPosY[spieler]] = 'P';
+
+                            done = true;
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+
+        }
+        /*
+        else if (spieler%4 == 3) {
+            //Suche nach Rand, Defensiv
+        }
+
+         */
+    }
+
+    public static void schritt() {
+        reihenfolge();
+
+        for (int i = 0; i < reihenfolge.length; i++) {
+            if (spielerPosX[reihenfolge[i]] != -1) {
+                if (reihenfolge[i] < 4) {
+                    zugEins(reihenfolge[i]);
+                } else {
+                    zugZwei(reihenfolge[i]);
+                }
+            }
+        }
+        for (int i = 0; i < reihenfolge.length; i++) {
+            if (spielerPosX[reihenfolge[i]] == -1) {
+                //respawn
+                respawn(reihenfolge[i]);
+            }
+        }
+    }
+
+    public static void simulation(int n) {
         SchischVisualizer sv = new SchischVisualizer();
-        initialisiereSpielfeld(60,60);
+        int a = Zufall.zufallGanz(40,80);
+        int b = Zufall.zufallGanz(40,80);
+
+        initialisiereSpielfeld(a,b);
         sv.step(spielfeld);
 
         startPositionen();
         sv.step(spielfeld);
 
-        reihenfolge();
-        blatt07.ArbeitMitArrays.printArray(reihenfolge);
-
+        for (int i = 0; i < n; i++) {
+            schritt();
+            sv.step(spielfeld);
+        }
 
         sv.start();
+
+    }
+
+    public static void main(String[] args) {
+        simulation(1000);
     }
 }
