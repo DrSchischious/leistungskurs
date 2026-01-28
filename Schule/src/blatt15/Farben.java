@@ -930,8 +930,8 @@ public class Farben {
 
     public static void simulation(int n) {
         SchischVisualizer sv = new SchischVisualizer();
-        int a = Zufall.zufallGanz(10,10);
-        int b = Zufall.zufallGanz(10,10);
+        int a = Zufall.zufallGanz(10,40);
+        int b = Zufall.zufallGanz(10,40);
 
         initialisiereSpielfeld(a,b);
         sv.step(spielfeld);
