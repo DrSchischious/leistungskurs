@@ -2,6 +2,7 @@ package blatt07;
 
 public class ArbeitMitArrays {
 
+
     /**
      * Gibt den Inhalt eines Arrays aus.
      * @param arr int-Array

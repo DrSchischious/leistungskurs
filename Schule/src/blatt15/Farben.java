@@ -672,138 +672,262 @@ public class Farben {
          */
     }
 
-    public static void zugZwei(int sp) {
-        if (spielerPosX[sp] > -1) {
-            char[] sicht = sichtfeld(sp);
-            int counter = 0;
-            for (int i = 4; i < 8; i++) {
-                if (spielerPosX[i] < spielerPosX[sp] && spielerPosX[i] > -1) {
-                    counter++;
+    public static void zugZwei(int spieler) {
+        if (spielerPosX[spieler] > -1) {
+            char farbe = '7';
+
+            char farbeG = '9';
+
+            if (spieler > 3) {
+                farbe = '9';
+                farbeG = '7';
+            }
+
+            int x = spielerPosX[spieler];
+            int y = spielerPosY[spieler];
+
+            char[] sichtfeld = new char[12];
+
+            sichtfeld[8] = Simulationen.getNorden(spielfeld, x, y - 1, false);
+            sichtfeld[11] = Simulationen.getWesten(spielfeld, x - 1, y, false);
+            sichtfeld[9] = Simulationen.getOsten(spielfeld, x + 1, y, false);
+            sichtfeld[10] = Simulationen.getSueden(spielfeld, x, y + 1, false);
+
+            sichtfeld[5] = Simulationen.getNordWest(spielfeld, x, y, false);
+            sichtfeld[0] = Simulationen.getNorden(spielfeld, x, y, false);
+            sichtfeld[4] = Simulationen.getNordOst(spielfeld, x, y, false);
+            sichtfeld[1] = Simulationen.getOsten(spielfeld, x, y, false);
+            sichtfeld[3] = Simulationen.getWesten(spielfeld, x, y, false);
+            sichtfeld[7] = Simulationen.getSuedOst(spielfeld, x, y, false);
+            sichtfeld[2] = Simulationen.getSueden(spielfeld, x, y, false);
+            sichtfeld[6] = Simulationen.getSuedWest(spielfeld, x, y, false);
+
+/*
+        8
+     7  0  4
+  11 3 'P' 1  9
+     6  2  5
+        10
+ */
+
+            int richtung = zufallGanz(3);
+
+/*
+    0 -> oben
+    1 -> unten
+    2 -> links
+    3 -> rechts
+ */
+
+            int kante = 0;
+
+            if (sichtfeld[0] == farbe && sichtfeld[1] == farbe && sichtfeld[2] == farbe && sichtfeld[3] == farbe && sichtfeld[5] == farbe && sichtfeld[6] == farbe && sichtfeld[7] == farbe) {
+                if (sichtfeld[8] == ' ' || sichtfeld[8] == farbeG) {
+                    richtung = 0;
+                    kante = 1;
+                }
+                if (sichtfeld[9] == ' ' || sichtfeld[9] == farbeG) {
+                    richtung = 1;
+                    kante = 2;
+                }
+                if (sichtfeld[10] == ' ' || sichtfeld[10] == farbeG) {
+                    richtung = 2;
+                    kante = 3;
+                }
+                if (sichtfeld[11] == ' ' || sichtfeld[11] == farbeG) {
+                    richtung = 3;
+                    kante = 4;
                 }
             }
-            if (counter > 1) { //Defensive
-                if (spielerPosX[sp] < spielfeld.length - 2) {
-                    char[] charr = new char[]{'P', '7', ' ', '9'};
-                    for (int i = 0; i < charr.length; i++) {
-                        if (sicht[1] == charr[i]) {
-                            if (!istTeammate(sp, spielerPosX[sp] - 1, spielerPosY[sp])) {
-                                move(sp, 2);
-                                i = charr.length;
-                            }
-                        } else if (sicht[2] == charr[i]) {
-                            if (!istTeammate(sp, spielerPosX[sp], spielerPosY[sp] + 1)) {
-                                move(sp, 3);
-                                i = charr.length;
-                            }
-                        } else if (sicht[0] == charr[i]) {
-                            if (!istTeammate(sp, spielerPosX[sp], spielerPosY[sp] - 1)) {
-                                move(sp, 1);
-                                i = charr.length;
-                            }
-                        } else if (sicht[3] == charr[i]) {
-                            if (!istTeammate(sp, spielerPosX[sp] + 1, spielerPosY[sp])) {
-                                move(sp, 4);
-                                i = charr.length;
-                            }
-                        } else {
-                            if (i == charr.length - 1) {
-                                move(sp, zufallGanz(1, 4));
-                            }
-                        }
-                    }
+            if (kante == 0 && sichtfeld[0] == farbe && sichtfeld[1] == farbe && sichtfeld[2] == farbe && sichtfeld[3] == farbe) {
+                if (sichtfeld[4] == farbe) {
+                    richtung = 0;
+                    kante = 1;
+                }
+                if (sichtfeld[5] == farbe) {
+                    richtung = 1;
+                    kante = 2;
+                }
+                if (sichtfeld[6] == farbe) {
+                    richtung = 2;
+                }
+                if (sichtfeld[7] == farbe) {
+                    richtung = 3;
+                    kante = 3;
+                }
+            }
+            if (kante == 0) {
+                if (sichtfeld[1] == farbe && sichtfeld[0] == farbe && sichtfeld[3] == farbe) {
+                    richtung = 2;
+                    kante = 1;
+                } else if (sichtfeld[0] == farbe && sichtfeld[3] == farbe && sichtfeld[2] == farbe) {
+                    richtung = 1;
+                    kante = 2;
+                } else if (sichtfeld[2] == farbe && sichtfeld[3] == farbe && sichtfeld[1] == farbe) {
+                    richtung = 0;
+                    kante = 3;
+                } else if (sichtfeld[2] == farbe && sichtfeld[1] == farbe && sichtfeld[0] == farbe) {
+                    richtung = 3;
+                    kante = 4;
+                }
+            }
+            if (kante == 0) {
+                if (sichtfeld[1] == farbe && sichtfeld[0] == farbe) {
+                    richtung = 2;
+                    kante = 1;
+                } else if (sichtfeld[0] == farbe && sichtfeld[3] == farbe) {
+                    richtung = 1;
+                    kante = 2;
+                } else if (sichtfeld[2] == farbe && sichtfeld[3] == farbe) {
+                    richtung = 0;
+                    kante = 3;
+                } else if (sichtfeld[2] == farbe && sichtfeld[1] == farbe) {
+                    richtung = 3;
+                    kante = 4;
+                }
+            }
+            if (kante == 0) {
+                if (sichtfeld[1] == farbe) {
+                    richtung = 2;
+                }
+                if (sichtfeld[2] == farbe) {
+                    richtung = 3;
+                }
+                if (sichtfeld[3] == farbe) {
+                    richtung = 0;
+                }
+                if (sichtfeld[0] == farbe) {
+                    richtung = 1;
+                }
+            }
+
+/*
+if (sichtfeld[0] == '8') {
+    richtung = 2;
+}
+if (sichtfeld[1] == '8') {
+    richtung = 3;
+}
+if (sichtfeld[2] == '8') {
+    richtung = 0;
+}
+if (sichtfeld[3] == '8') {
+    richtung = 1;
+}*/
+
+            if ((sichtfeld[0] == '8' && sichtfeld[2] != farbe) || (sichtfeld[1] == '8' && sichtfeld[3] == farbe)) {
+                richtung = 2;
+            }
+            if ((sichtfeld[3] == '8' && sichtfeld[1] != farbe) || (sichtfeld[0] == '8' && sichtfeld[2] == farbe)) {
+                richtung = 1;
+            }
+            if ((sichtfeld[1] == '8' && sichtfeld[3] != farbe) || (sichtfeld[2] == '8' && sichtfeld[0] == farbe)) {
+                richtung = 3;
+            }
+            if ((sichtfeld[2] == '8' && sichtfeld[0] != farbe) || (sichtfeld[3] == '8' && sichtfeld[1] == farbe)) {
+                richtung = 0;
+            }
+
+            if (sichtfeld[0] == farbe && sichtfeld[3] == farbe && sichtfeld[2] == farbe && sichtfeld[1] == '8') {
+                richtung = 1;
+            }
+            if (sichtfeld[0] == farbe && sichtfeld[1] == farbe && sichtfeld[2] == farbe && sichtfeld[3] == '8') {
+                richtung = 3;
+            }
+            if (sichtfeld[1] == farbe && sichtfeld[3] == farbe && sichtfeld[2] == farbe && sichtfeld[0] == '8') {
+                richtung = 0;
+            }
+            if (sichtfeld[0] == farbe && sichtfeld[3] == farbe && sichtfeld[1] == farbe && sichtfeld[2] == '8') {
+                richtung = 2;
+            }
+
+            boolean v = true;
+            for (int i = 0; i < sichtfeld.length; i++) {
+                if (sichtfeld[i] == ' ' || sichtfeld[i] == farbeG) {
+                    v = false;
+                    break;
+                }
+            }
+
+            if (v) {
+                if (x < 40) {
+                    richtung = 1;
+                } else if (x > 40) {
+                    richtung = 3;
+                } else if (y < 40) {
+                    richtung = 2;
+                } else if (y > 40) {
+                    richtung = 0;
                 } else {
-                    int max;
-                    if (sp == 0) {
-                        max = 1;
-                    } else {
-                        max = 0;
-                    }
-                    int dir;
-                    for (int i = 0; i < 4; i++) {
-                        if (spielerPosX[i] > spielerPosX[max] && i != sp) {
-                            max = i;
-                        }
-                    }
-                    int y;
-                    if (spielerPosY[sp] < spielerPosY[max]) {
-                        dir = 1;
-                        y = -1;
-                    } else {
-                        dir = 3;
-                        y = 1;
-                    }
-                    boolean c = true;
-                    if (!istTeammate(sp,spielerPosX[sp], spielerPosY[sp] + y)) {
-                        if (sicht[dir - 1] != '9' && sicht[dir - 1] != '8') {
-                            move(sp, dir);
-                            c = false;
-                        }
-                    }
-                    char[] charr = new char[]{'P', '7', ' ', '9'};
-                    if ((sicht[0] == '7' || sicht[0] == '8') && (sicht[1] == '7' || sicht[1] == '8') && sicht[2] == '7' && (sicht[3] == '7' || sicht[3] == '8')) {
-                        move(sp, 2);
-                        c = false;
-                    }
-                    if (c) {
-                        for (int i = 0; i < charr.length; i++) {
-                            if (sicht[dir - 1] == charr[i]) {
-                                if (!istTeammate(sp, spielerPosX[sp], spielerPosY[sp] + y)) {
-                                    move(sp, dir);
-                                    i = charr.length;
-                                }
-                            } else if (sicht[1] == charr[i]) {
-                                if (!istTeammate(sp, spielerPosX[sp] + 1, spielerPosY[sp])) {
-                                    move(sp, 2);
-                                    i = charr.length;
-                                }
-                            } else if (sicht[(dir - (2 * y)) - 1] == charr[i]) {
-                                if (!istTeammate(sp, spielerPosX[sp], spielerPosY[sp] +y)) {
-                                    move(sp, dir - (2 * y));
-                                    i = charr.length;
-                                }
-                            } else if (sicht[3] == charr[i]) {
-                                if (!istTeammate(sp, spielerPosX[sp] - 1, spielerPosY[sp])) {
-                                    move(sp, 4);
-                                    i = charr.length;
-                                }
-                            } else {
-                                if (i == charr.length - 1) {
-                                    move(sp, zufallGanz(1,4));
-                                }
-                            }
-                        }
-                    }
-                }
-            } else { //Offensive
-                char[] charr = new char[]{'P', '7', ' ', '9'};
-                for (int i = 0; i < charr.length; i++) {
-                    if (sicht[3] == charr[i]) {
-                        if (!istTeammate(sp, spielerPosX[sp] - 1, spielerPosY[sp])) {
-                            move(sp, 4);
-                            i = charr.length;
-                        }
-                    } else if (sicht[0] == charr[i]) {
-                        if (!istTeammate(sp, spielerPosX[sp], spielerPosY[sp] - 1)) {
-                            move(sp, 1);
-                            i = 3;
-                        }
-                    } else if (sicht[2] == charr[i]) {
-                        if (!istTeammate(sp, spielerPosX[sp], spielerPosY[sp] + 1)) {
-                            move(sp, 3);
-                            i = charr.length;
-                        }
-                    } else if (sicht[1] == charr[i]) {
-                        if (!istTeammate(sp, spielerPosX[sp] + 1, spielerPosY[sp])) {
-                            move(sp, 2);
-                            i = charr.length;
-                        }
-                    } else {
-                        if (i == charr.length - 1) {
-                            move(sp, zufallGanz(1, 4));
-                        }
-                    }
+                    richtung = zufallGanz(3);
                 }
             }
+
+            for (int i = 0; i < 4; i++) {
+                if (sichtfeld[i] == 'P') {
+                    richtung = i;
+                    int xK = x;
+                    int yK = y;
+                    switch (richtung) {
+                        case 0:
+                            yK--;
+                            break;
+                        case 1:
+                            xK++;
+                            break;
+                        case 2:
+                            yK++;
+                            break;
+                        case 3:
+                            xK--;
+                            break;
+                    }
+                    for (int j = 0; j < spielerPosX.length; j++) {
+                        if (xK == spielerPosX[j] && yK == spielerPosY[j]) {
+                            spielerPosX[j] = -1;
+                            spielerPosY[j] = -1;
+                        }
+                    }
+                    break;
+                }
+            }
+
+            // spieler platzieren
+
+            spielfeld[x][y] = farbe;
+            switch (richtung) {
+                case 0:
+                    if (Simulationen.getNorden(spielfeld, x, y, false) != '8') {
+                        y--;
+                    } else {
+                        y++;
+                    }
+                    break;
+                case 2:
+                    if (Simulationen.getSueden(spielfeld, x, y, false) != '8') {
+                        y++;
+                    } else {
+                        y--;
+                    }
+                    break;
+                case 3:
+                    if (Simulationen.getWesten(spielfeld, x, y, false) != '8') {
+                        x--;
+                    } else {
+                        x++;
+                    }
+                    break;
+                case 1:
+                    if (Simulationen.getOsten(spielfeld, x, y, false) != '8') {
+                        x++;
+                    } else {
+                        x--;
+                    }
+                    break;
+            }
+            spielerPosX[spieler] = x;
+            spielerPosY[spieler] = y;
+            spielfeld[x][y] = 'P';
         }
     }
 
@@ -930,14 +1054,15 @@ public class Farben {
 
     public static void simulation(int n) {
         SchischVisualizer sv = new SchischVisualizer();
-        int a = Zufall.zufallGanz(10,40);
-        int b = Zufall.zufallGanz(10,40);
+        int a = Zufall.zufallGanz(60,80);
+        int b = Zufall.zufallGanz(60,80);
 
         initialisiereSpielfeld(a,b);
         sv.step(spielfeld);
 
         startPositionen();
         sv.step(spielfeld);
+
 
 
         for (int i = 0; i < n; i++) {
