@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Farben:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Farben_jar</output-path>
+    <root id="archive" name="leistungskurs.jar">
+      <element id="module-output" name="Schule" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/schisch_visualizer_neo.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

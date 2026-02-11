@@ -7,6 +7,10 @@ import blatt14.Simulationen;
 import schisch_visualizer.SchischVisualizer;
 import blatt14.Simulationen.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import static blatt13.Zufall.zufallGanz;
 import static blatt14.Simulationen.*;
 

@@ -7,5 +7,7 @@ public class Wow {
             zahl = zahl + 1;
         }
         System.out.println("Die Zahl lautet " + zahl);
+        zahl = zahl - 1;
+        System.out.println("Die Zahl lautet " + zahl);
     }
 }

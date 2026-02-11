@@ -526,6 +526,7 @@ public class Steine {
 
         int d = 0;
         int x = 0;
+
         boolean good = true;
         switch(i) {
             case 1:
