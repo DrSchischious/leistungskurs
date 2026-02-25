@@ -261,10 +261,9 @@ public class Zipper {
 
     public static void main(String[] args) {
         //C:\Users\DanielSchisch.AzureAD\Desktop\Really\[HorribleSubs] JoJo's Bizarre Adventure - Golden Wind - 37 [1080p].mkv
-        //divide("C:\\Users\\DanielSchisch.AzureAD\\Desktop\\Really\\[HorribleSubs] JoJo's Bizarre Adventure - Golden Wind - 37 [1080p].mkv",20);
+        //divide("C:\\Users\\DanielSchisch.AzureAD\\Desktop\\Really\\[HorribleSubs] JoJo's Bizarre Adventure - Golden Wind - 37 [1080p].mkv",12);
         //conquer("C:\\Users\\DanielSchisch.AzureAD\\Desktop\\Really\\[HorribleSubs] JoJo's Bizarre Adventure - Golden Wind - 37 [1080p].mkv");
         //mush("C:\\Users\\DanielSchisch.AzureAD\\Desktop\\NewDir","ha");
-
-        demush("C:\\Users\\DanielSchisch.AzureAD\\Desktop\\NewDir\\ha.mush");
+        //demush("C:\\Users\\DanielSchisch.AzureAD\\Desktop\\NewDir\\ha.mush");
     }
 }
