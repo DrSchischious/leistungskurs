@@ -22,7 +22,7 @@ public class BubbleSort {
 
 
     public static void main(String[] args) {
-        int[] arr = blatt07.ArbeitMitArrays.randomArray(15);
+        int[] arr = blatt07.ArbeitMitArrays.randomArray(120);
         blatt07.ArbeitMitArrays.printArray(arr);
         bubbleSort(arr);
         System.out.println();

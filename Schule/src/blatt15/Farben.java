@@ -2138,7 +2138,6 @@ if (sichtfeld[3] == '8') {
     //Grün
     public static void zugZwei(int spieler) {
         zugJan(spieler);
-
     }
 
     static boolean imFeld(int x, int y) {

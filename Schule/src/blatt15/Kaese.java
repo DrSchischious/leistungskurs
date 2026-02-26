@@ -51,7 +51,7 @@ public class Kaese {
     public static void main(String[] args) {
         SchischVisualizer sv = new SchischVisualizer();
 
-        char[][] charr = init(300, 200,0.41);
+        char[][] charr = init(300, 200,0.40);
 
         sv.step(charr);
 

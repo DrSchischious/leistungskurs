@@ -113,7 +113,7 @@ public class PenAndPaper {
     public static void main(String[] args) {
         int bard = 0;
         int barbar = 0;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             if (simulation() == -1) {
                 barbar++;
             } else {
