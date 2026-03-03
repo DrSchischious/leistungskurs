@@ -7,7 +7,7 @@ public class Zufall {
     }
 
     public static int zufallGanz(int b) {
-        return (int)zufall(b);
+        return (int)zufall(b+1);
     }
 
     public static double zufall(int a, int b) {
@@ -28,6 +28,14 @@ public class Zufall {
 
     public static void main(String[] args) {
         int[] arr = zufallArray(20, 4, 9);
-        blatt07.ArbeitMitArrays.printArray(arr);
+        //blatt07.ArbeitMitArrays.printArray(arr);
+        System.out.println(zufallGanz(5,10));
+        System.out.println(zufallGanz(5,10));
+        System.out.println(zufallGanz(5,10));
+        System.out.println(zufallGanz(5,10));
+        System.out.println(zufallGanz(5,10));
+        System.out.println(zufallGanz(5,10));
+        System.out.println(zufallGanz(5,10));
+        System.out.println(zufallGanz(5,10));
     }
 }
