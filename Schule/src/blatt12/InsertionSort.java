@@ -4,6 +4,11 @@ import java.util.Arrays;
 
 public class InsertionSort {
 
+    /**
+     * Führt den InsertionSort zum Sortieren einer Liste durch.
+     * @param arr zu sortierende Liste
+     * @return sortierter int-Array
+     */
     public static int[] insertionSort(int[] arr) {
         int n = arr.length;
         for (int i = 1; i < n; i++) {

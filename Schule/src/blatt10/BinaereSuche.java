@@ -2,6 +2,12 @@ package blatt10;
 
 public class BinaereSuche {
 
+    /**
+     * Binäre Suche in logarithmischer Laufzeit. Sucht ein Element innerhalb einer sortierten Liste.
+     * @param arr zu durchsuchende Liste
+     * @param n zu findendes Element
+     * @return true, falls gefunden, sonst false
+     */
 	public static boolean binaerSuchen(int[] arr, int n) {
 		int l = 0;
         int r = arr.length - 1;

@@ -4,6 +4,12 @@ import schisch_visualizer.SchischVisualizer;
 
 public class Simulationen {
 
+    /**
+     * Befüllt einen zweidimensionalen char-Array mit einem übergebenen Symbol mit einer bestimmten Verteilungsdichte
+     * @param charr zweidimensionaler char-Array
+     * @param ein zu verteilendes Symbol
+     * @param ws Verteilungsdichte in % (zwischen 0 und 1)
+     */
     public static void fuellen(char[][] charr, char ein, double ws) {
         for (int i = 0; i < charr.length; i++) {
             for (int j = 0; j < charr[0].length; j++) {
@@ -14,6 +20,13 @@ public class Simulationen {
         }
     }
 
+    /**
+     * Befüllt einen zweidimensionalen char-Array mit einem übergebenen Symbol mit einer bestimmten Verteilungsdichte, wobei nur auf einem neutralen Element verteilt wird
+     * @param charr zweidimensionaler char-Array
+     * @param ein zu verteilendes Symbol
+     * @param ws Verteilungsdichte in % (zwischen 0 und 1)
+     * @param neutral neutrales Feld
+     */
     public static void fuellen(char[][] charr, char ein, double ws, char neutral) {
         for (int i = 0; i < charr.length; i++) {
             for (int j = 0; j < charr[0].length; j++) {
@@ -27,6 +40,12 @@ public class Simulationen {
         }
     }
 
+    /**
+     * Platziert ein übergebenes Element auf einem zufälligen Feld im zweidimensionalen char-Array
+     * @param charr zweidimensionaler char-Array
+     * @param ein zu platzierendes Element
+     * @param dopplung falls true, darf das Element nicht ein gleiches Element überschrieben
+     */
     public static void platzieren(char[][] charr, char ein, boolean dopplung) {
         if (!dopplung) {
             int x = (int)(Math.random()*charr.length);
@@ -43,6 +62,14 @@ public class Simulationen {
         }
     }
 
+    /**
+     * Gibt das Element nördlich von einer Position zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return char, der sich nördlich vom Feld befindet
+     */
     public static char getNorden(char[][] arr, int x, int y, boolean rand) {
         //Check for valid input
         if (x < 0 || x > arr.length - 1) {
@@ -64,6 +91,14 @@ public class Simulationen {
         return arr[x][y];
     }
 
+    /**
+     * Gibt das Element südlich von einer Position zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return char, der sich südlich vom Feld befindet
+     */
     public static char getSueden(char[][] arr, int x, int y, boolean rand) {
         //Check for valid input
         if (x < 0 || x > arr.length - 1) {
@@ -85,6 +120,14 @@ public class Simulationen {
         return arr[x][y];
     }
 
+    /**
+     * Gibt das Element westlich von einer Position zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return char, der sich westlich vom Feld befindet
+     */
     public static char getWesten(char[][] arr, int x, int y, boolean rand) {
         //Check for valid input
         if (x < 0 || x > arr.length - 1) {
@@ -106,6 +149,15 @@ public class Simulationen {
         return arr[x][y];
     }
 
+
+    /**
+     * Gibt das Element östlich von einer Position zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return char, der sich östlich vom Feld befindet
+     */
     public static char getOsten(char[][] arr, int x, int y, boolean rand) {
         //Check for valid input
         if (x < 0 || x > arr.length - 1) {
@@ -128,6 +180,14 @@ public class Simulationen {
         return arr[x][y];
     }
 
+    /**
+     * Gibt das Element nordwestlich von einer Position zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return char, der sich nordwestlich vom Feld befindet
+     */
     public static char getNordWest(char[][] arr, int x, int y, boolean rand) {
 
         //Check for valid input
@@ -159,6 +219,14 @@ public class Simulationen {
         return arr[x][y];
     }
 
+    /**
+     * Gibt das Element nordöstlich von einer Position zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return char, der sich nordöstlich vom Feld befindet
+     */
     public static char getNordOst(char[][] arr, int x, int y, boolean rand) {
 
         //Check for valid input
@@ -190,6 +258,15 @@ public class Simulationen {
         return arr[x][y];
     }
 
+
+    /**
+     * Gibt das Element südwestlich von einer Position zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return char, der sich südwestlich vom Feld befindet
+     */
     public static char getSuedWest(char[][] arr, int x, int y, boolean rand) {
 
         //Check for valid input
@@ -221,6 +298,14 @@ public class Simulationen {
         return arr[x][y];
     }
 
+    /**
+     * Gibt das Element südöstlich von einer Position zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return char, der sich südöstlich vom Feld befindet
+     */
     public static char getSuedOst(char[][] arr, int x, int y, boolean rand) {
 
         //Check for valid input
@@ -252,6 +337,15 @@ public class Simulationen {
         return arr[x][y];
     }
 
+    /**
+     * Zählt das Aufkommen eines Suchelementes vierdirektional um das Feld herum und gibt die Anzahl zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param such Suchelement
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return Anzahl des Aufkommens des Suchelementes
+     */
     public static int zaehlenVier(char[][] arr, int x, int y, char such, boolean rand) {
         int count = 0;
         if (getNorden(arr,x,y,rand) == such) {
@@ -269,6 +363,15 @@ public class Simulationen {
         return count;
     }
 
+    /**
+     * Zählt das Aufkommen eines Suchelementes achtdirektional um das Feld herum und gibt die Anzahl zurück.
+     * @param arr zweidimensionaler char-Array
+     * @param x x-Position des Feldes
+     * @param y y-Position des Feldes
+     * @param such Suchelement
+     * @param rand falls true, darf über den Rand geschaut werden
+     * @return Anzahl des Aufkommens des Suchelementes
+     */
     public static int zaehlenAcht(char[][] arr, int x, int y, char such, boolean rand) {
         int count = 0;
         if (getNorden(arr,x,y,rand) == such) {

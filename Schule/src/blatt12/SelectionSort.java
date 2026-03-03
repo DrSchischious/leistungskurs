@@ -1,6 +1,10 @@
 package blatt12;
 
 public class SelectionSort {
+    /**
+     * Führt den SelectionSort zum Sortieren einer Liste durch
+     * @param arr zu sortierender int-Array
+     */
     public static void selectionSort(int[] arr) {
         for (int j = 1; j <= arr.length - 1; j++) {
             int tmp = arr[j];

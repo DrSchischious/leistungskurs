@@ -2,6 +2,12 @@ package blatt09;
 
 public class Kuerzen {
 
+    /**
+     * Prüft, ob ein Bruch kürzbar ist.
+     * @param z Zähler des Bruchs
+     * @param n Nenner des Bruchs
+     * @return true, falls kürzbar, sonst false
+     */
     public static boolean istKuerzbar(int z, int n) {
         int[] tz = Teiler.teiler(z);
         int[] tn = Teiler.teiler(n);
@@ -16,6 +22,11 @@ public class Kuerzen {
         return false;
     }
 
+    /**
+     * Gibt zu einem gegebenem Bruch die gekürzte Form aus.
+     * @param z Zähler des Bruchs
+     * @param n Nenner des Bruchs
+     */
     public static void kuerzen(int z, int n) {
 
         System.out.print(z + "/" + n + " = ");
