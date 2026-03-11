@@ -17,10 +17,9 @@ public class Verzeichnisse {
                 showDirectory(f.getAbsolutePath(), depth + 1);
             }
         }
-
     }
 
     public static void main(String[] args) {
-        showDirectory("C:\\Users\\cloud\\OneDrive\\Schule\\Informatik Materialien",0);
+        showDirectory("C:\\Users\\cloud\\Desktop",0);
     }
 }
