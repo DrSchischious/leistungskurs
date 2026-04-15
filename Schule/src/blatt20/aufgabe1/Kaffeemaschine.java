@@ -1,8 +1,8 @@
 package blatt20.aufgabe1;
 
 public class Kaffeemaschine {
-    double bohnen;
-    int wasser;
+    private double bohnen;
+    private int wasser;
     int dreck;
     int kaffeesatz;
 
