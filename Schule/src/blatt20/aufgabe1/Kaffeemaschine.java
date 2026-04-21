@@ -47,7 +47,7 @@ public class Kaffeemaschine {
             //Fehlermeldung
             System.out.println("Fehlerhafte Einstellung");
         } else {
-            if (this.bohnen < intensitaet*0.5*menge) {
+            if (this.bohnen < (double)(intensitaet*0.5*menge / 10)) {
                 //Fehlermeldung
                 System.out.println("Es sind nicht genügend Kaffeebohnen in der Maschine vorhanden.");
             } else if (this.wasser < menge) {

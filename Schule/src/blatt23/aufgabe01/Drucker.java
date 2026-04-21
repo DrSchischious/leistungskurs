@@ -2,26 +2,26 @@ package blatt23.aufgabe01;
 
 public class Drucker {
     private Verbindungsmodus verbindungsmodus;
-    private int anzahlSeiten;
+    private int papierfach;
     private Geraetemodus geraetemodus;
     private boolean aufVorlagenglas;
     private double tinteSW;
     private double tinteFarbe;
     private Abonnement abo;
+
     private int anzahlOfflineSeiten;
     private int restKontingent;
 
     public Drucker(Abonnement abo) {
         this.abo = abo;
         this.verbindungsmodus = Verbindungsmodus.ONLINE;
-        this.anzahlSeiten = 0;
+        this.papierfach = 0;
         this.geraetemodus = Geraetemodus.STANDBY;
         this.aufVorlagenglas = false;
         this.tinteSW = 100;
         this.tinteFarbe = 100;
         this.anzahlOfflineSeiten = 0;
         this.restKontingent = this.abo.kontingent;
-
     }
 
     public Geraetemodus getGeraetemodus() {
@@ -32,8 +32,8 @@ public class Drucker {
         return verbindungsmodus;
     }
 
-    public int getAnzahlSeiten() {
-        return anzahlSeiten;
+    public int getPapierfach() {
+        return papierfach;
     }
 
     public boolean isAufVorlagenglas() {
@@ -58,6 +58,7 @@ public class Drucker {
 
     public void zuOnline() {
         this.verbindungsmodus = Verbindungsmodus.ONLINE;
+        this.anzahlOfflineSeiten = 0;
     }
 
     public void zuOffline() {
@@ -70,10 +71,10 @@ public class Drucker {
 
     public void papierAuffuellen(int seiten) {
         if (seiten > 0) {
-            if (this.anzahlSeiten + seiten > 250) {
-                this.anzahlSeiten = 250;
+            if (this.papierfach + seiten > 250) {
+                this.papierfach = 250;
             } else {
-                this.anzahlSeiten += seiten;
+                this.papierfach += seiten;
             }
         } else {
             System.out.println("Seitenanzahl muss positiv sein.");
@@ -170,17 +171,62 @@ public class Drucker {
 
         //Check if possible
         if (seiten > 0) {
-            if (seiten <= this.anzahlSeiten) {
-                if (seiten <= this.restKontingent) {
-                    if (verbrauchFarbe <= this.tinteFarbe) {
-                        if (verbrauchSW <= this.tinteSW) {
-                            //Everything is fine.
+            if (this.verbindungsmodus != Verbindungsmodus.ONLINE && seiten + this.anzahlOfflineSeiten <= 20) {
+                if (seiten <= this.papierfach) {
+                    if (seiten <= this.restKontingent) {
+                        if (verbrauchFarbe <= this.tinteFarbe) {
+                            if (verbrauchSW <= this.tinteSW) {
+                                //Everything is fine.
+                                this.tinteFarbe -= verbrauchFarbe;
+                                this.tinteSW -= verbrauchSW;
+                                this.papierfach -= seiten;
+                                if (this.verbindungsmodus != Verbindungsmodus.ONLINE) {
+                                    this.anzahlOfflineSeiten += seiten;
+                                }
+                                Druckauftrag a = new Druckauftrag((int)(Math.random()*10000),seiten,modus,druckart,this.tinteSW, this.tinteFarbe);
+                                //Senden an Zentrale
 
+                            }
                         }
                     }
                 }
             }
         }
+
+        //Never-Nester (Alternativfall)
+        if (seiten <= 0) {
+            //Error
+            return ;
+        }
+        if (this.verbindungsmodus == Verbindungsmodus.ONLINE && seiten + this.anzahlOfflineSeiten > 20) {
+            //Error
+            return ;
+        }
+        if (seiten > this.papierfach) {
+
+            return;
+        }
+
+        if (seiten > this.restKontingent) {
+            return;
+        }
+        if (verbrauchFarbe > this.tinteFarbe) {
+            return;
+        }
+        if (verbrauchSW > this.tinteSW) {
+            return;
+        }
+        //Everything is fine.
+        this.tinteFarbe -= verbrauchFarbe;
+        this.tinteSW -= verbrauchSW;
+        this.papierfach -= seiten;
+        if (this.verbindungsmodus != Verbindungsmodus.ONLINE) {
+            this.anzahlOfflineSeiten += seiten;
+        }
+        Druckauftrag a = new Druckauftrag((int)(Math.random()*10000),seiten,modus,druckart,this.tinteSW, this.tinteFarbe);
+        //Senden an Zentrale
+
+
     }
 
 
