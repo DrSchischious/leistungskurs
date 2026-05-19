@@ -1,5 +1,7 @@
 package blatt29.aufgabe04;
 
+import java.util.ArrayList;
+
 public abstract class Wesen {
 
     private int level;
@@ -17,6 +19,8 @@ public abstract class Wesen {
     private Kopf kopf;
     private Ruestung ruestung;
 
+    private ArrayList<Status> status;
+
     public Wesen(int level, int maxHP, int str, int vit, int dex, int mag, int lck) {
         this.level = level;
         this.exp = 0;
@@ -31,11 +35,17 @@ public abstract class Wesen {
         this.waffe = null;
         this.kopf = null;
         this.ruestung = null;
-    }
 
+        this.status = new ArrayList<Status>();
+    }
 
     public boolean istTreffer(Wesen w) {
         //Ausweichen(?)
+
+        if (w.status.contains(Status.SCHLAF)) {
+            return true;
+        }
+
         double aus = (double)(this.dex/w.dex);
         double real = 0;
         if (aus < 1) {
@@ -78,6 +88,14 @@ public abstract class Wesen {
         }
     }
 
+    public void heilen(int wert) {
+        if (this.hp + wert <= this.maxHP) {
+            this.hp += wert;
+        } else {
+            this.hp = this.maxHP;
+        }
+    }
+
     public void schaden(int schaden) {
         if (schaden <= 0) {
             System.out.println("Zu schwach.");
@@ -110,7 +128,7 @@ public abstract class Wesen {
     public boolean setWaffe(Waffe w) {
         if (this.waffe == null) {
             this.waffe = w;
-            updateStats(w);
+            updateStats(w, true);
             return true;
         } else {
             return false;
@@ -120,7 +138,7 @@ public abstract class Wesen {
     public boolean setKopf(Kopf k) {
         if (this.kopf == null) {
             this.kopf = k;
-            updateStats(k);
+            updateStats(k, true);
             return true;
         } else {
             return false;
@@ -130,19 +148,28 @@ public abstract class Wesen {
     public boolean setRuestung(Ruestung r) {
         if (this.ruestung == null) {
             this.ruestung = r;
-            updateStats(r);
+            updateStats(r, true);
             return true;
         } else {
             return false;
         }
     }
 
-    private void updateStats(Ausruestung a) {
-        this.str += a.getStr();
-        this.vit += a.getVit();
-        this.dex += a.getDex();
-        this.mag += a.getMag();
-        this.lck += a.getLck();
+    private void updateStats(Ausruestung a, boolean add) {
+        if (add) {
+            this.str += a.getStr();
+            this.vit += a.getVit();
+            this.dex += a.getDex();
+            this.mag += a.getMag();
+            this.lck += a.getLck();
+        } else {
+            this.str -= a.getStr();
+            this.vit -= a.getVit();
+            this.dex -= a.getDex();
+            this.mag -= a.getMag();
+            this.lck -= a.getLck();
+        }
+
     }
 
     public boolean ausruesten(Ausruestung a) {
@@ -158,7 +185,20 @@ public abstract class Wesen {
         return false;
     }
 
-    public void ablegen() {
+    public void ablegen(int i) {
+        if (i == 0) {
+            this.updateStats(this.waffe, false);
+            this.waffe = null;
+
+        } else if (i == 1) {
+            this.updateStats(this.kopf, false);
+            this.kopf = null;
+
+        } else if (i == 2) {
+            this.updateStats(this.ruestung, false);
+            this.ruestung = null;
+
+        }
 
     }
 }
