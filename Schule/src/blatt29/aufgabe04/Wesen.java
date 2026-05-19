@@ -34,8 +34,7 @@ public abstract class Wesen {
     }
 
 
-
-    public void angreifen(Wesen w) {
+    public boolean istTreffer(Wesen w) {
         //Ausweichen(?)
         double aus = (double)(this.dex/w.dex);
         double real = 0;
@@ -66,42 +65,100 @@ public abstract class Wesen {
         }
 
         if (Math.random() < real) {
-            //HIT
-            if (Math.random() >= ((double) w.lck /10)) {
-                //HIT
-                //Calc-Damage
-                int dmg;
-                if (Math.random() < ((double) this.lck/5)) {
-                    //CRIT
-                    dmg = 4*this.str;
-                    System.out.println("Critical!");
-                } else {
-                    dmg = 4*this.str - 2*w.vit;
-                    System.out.println("Hit!");
-                }
-
-                if (dmg > 0) {
-                    //DAMAGE
-                    if (w.hp - dmg > 0) {
-                        w.hp -= dmg;
-                    } else {
-                        //Dead
-                        w.hp = 0;
-                        System.out.println("Dead.");
-                    }
-                } else {
-                    //No Damage
-                    System.out.println("Too Weak!");
-                }
-
-            } else {
-                //Lucky Dodge
+            if (Math.random() < ((double) w.lck / 100 / 10)) {
                 System.out.println("Lucky Dodge!");
+                return false;
+            } else {
+                System.out.println("Hit!");
+                return true;
             }
         } else {
-            //NO HIT
             System.out.println("Dodge!");
+            return false;
         }
+    }
+
+    public void schaden(int schaden) {
+        if (schaden <= 0) {
+            System.out.println("Zu schwach.");
+        } else {
+            if (schaden >= this.hp) {
+                this.hp = 0;
+                System.out.println("Besiegt.");
+            } else {
+                this.hp = this.hp - schaden;
+                System.out.println("Schaden.");
+            }
+        }
+    }
+
+    public void angreifen(Wesen w) {
+        if (istTreffer(w) == true) {
+            //Calc-Damage
+
+            if (Math.random() < ((double) this.lck/5)) {
+                //CRIT
+                w.schaden(4*this.str);
+                System.out.println("Critical!");
+            } else {
+                w.schaden(4*this.str - 2*w.vit);
+                System.out.println("Hit!");
+            }
+        }
+    }
+
+    public boolean setWaffe(Waffe w) {
+        if (this.waffe == null) {
+            this.waffe = w;
+            updateStats(w);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean setKopf(Kopf k) {
+        if (this.kopf == null) {
+            this.kopf = k;
+            updateStats(k);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean setRuestung(Ruestung r) {
+        if (this.ruestung == null) {
+            this.ruestung = r;
+            updateStats(r);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void updateStats(Ausruestung a) {
+        this.str += a.getStr();
+        this.vit += a.getVit();
+        this.dex += a.getDex();
+        this.mag += a.getMag();
+        this.lck += a.getLck();
+    }
+
+    public boolean ausruesten(Ausruestung a) {
+        if (this.getClass() == a.getKlasse()) {
+            if (a.getClass() == Waffe.class) {
+                return setWaffe((Waffe)a);
+            } else if (a.getClass() == Kopf.class) {
+                return setKopf((Kopf)a);
+            } else if (a.getClass() == Ruestung.class) {
+                return setRuestung((Ruestung)a);
+            }
+        }
+        return false;
+    }
+
+    public void ablegen() {
 
     }
 }
