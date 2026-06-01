@@ -43,14 +43,51 @@ public class Node {
         return count;
     }
 
-    public Node[] findInOrderNeighbour() {
+    public Node[] findNextInOrderNeighbour() {
         //Two Nodes
-
-        //The Right-Tree furthest left
-
+        Node[] neighbours = new Node[2];
         //The Left-Tree furthest right
+        Node n = this.right;
+        if (n.left == null) {
+            neighbours[0] = n;
+            neighbours[1] = this;
+            return neighbours;
+        }
+        while (n.left.left != null) {
+            n = n.left;
+        }
+        //Neighbour
+        neighbours[0] = n.left;
+        //His parent
+        neighbours[1] = n;
 
-        return null;
+
+        return neighbours;
+    }
+
+    public Node[] findPreviousInOrderNeighbour() {
+        //Two Nodes
+        Node[] neighbours = new Node[2];
+        //The Left-Tree furthest right
+        Node n = this.right;
+        while (n.left.left != null) {
+            n = n.left;
+        }
+        //Neighbour
+        neighbours[0] = n.left;
+        //His parent
+        neighbours[1] = n;
+
+
+        return neighbours;
+    }
+
+    public String toString() {
+        if (this == null) {
+            return "n";
+        } else {
+            return ""+this.value;
+        }
     }
 
 
