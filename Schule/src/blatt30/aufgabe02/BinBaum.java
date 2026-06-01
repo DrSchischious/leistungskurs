@@ -98,14 +98,20 @@ public class BinBaum {
                     //inOrder[0] gesuchter Knoten
                     Node next = inOrder[0];
 
-                    //inOrder[1] sein Vater
-                    if (next.getLeft() != null) {
-                        inOrder[1].setRight(next.getLeft());
-                    }
+                    remove(inOrder[0].getValue());
 
                     this.root = next;
-                    next.setRight(this.root.getRight());
-                    next.setLeft(this.root.getLeft());
+                    System.out.println("New Root: " + next.getValue());
+
+                    if (remove.getLeft() != next) {
+                        next.setLeft(remove.getLeft());
+                        System.out.println(next.getLeft().getValue() + " <- " + next.getValue());
+                    }
+                    if (remove.getRight() != next) {
+                        next.setRight(remove.getRight());
+                        System.out.println(next.getValue() + " -> " + next.getRight().getValue());
+
+                    }
 
                     return remove;
                 }
@@ -144,23 +150,20 @@ public class BinBaum {
                                 //Find In-Order-Neighbour
                                 System.out.println("Two Children (left)!");
                                 Node[] inOrder = remove.findNextInOrderNeighbour();
+                                /*
                                 System.out.println("Remove: " + remove.getValue());
 
                                 System.out.println("InOrder[0]: " + inOrder[0].getValue());
                                 System.out.println("InOrder[1]: " + inOrder[1].getValue());
-
+                                */
 
                                 //inOrder[0] gesuchter Knoten, ersetzt den zu entfernenden Knoten
                                 //Falls dieser jedoch selbst noch Kinder hat, so sollen diese an
                                 //dessen Vater übergeben werden, allerdings NACH dem Tausch!
+
+
                                 Node next = inOrder[0];
-
-                                //inOrder[1] sein Vater TODO: This does not work Reference 
-                                if (next.getRight() != null) {
-                                    inOrder[1].setLeft(next.getRight());
-                                    System.out.println(next.getRight().getRight() + " <- " + inOrder[1].getValue());
-                                }
-
+                                remove(inOrder[0].getValue());
 
                                 parent.setLeft(next);
                                 System.out.println(next.getValue() + " <- " + parent.getValue());
@@ -212,21 +215,16 @@ public class BinBaum {
                                 System.out.println("Two Children (right)!");
 
                                 Node[] inOrder = remove.findNextInOrderNeighbour();
+                                /*
                                 System.out.println("Remove: " + remove.getValue());
 
                                 System.out.println("InOrder[0]: " + inOrder[0].getValue());
                                 System.out.println("InOrder[1]: " + inOrder[1].getValue());
-
+                                */
 
                                 //inOrder[0] gesuchter Knoten
                                 Node next = inOrder[0];
-
-                                //inOrder[1] sein Vater
-                                if (next.getRight() != null) {
-                                    inOrder[1].setLeft(next.getRight());
-                                    System.out.println(next.getRight().getValue() + " <- " + inOrder[1].getValue());
-                                }
-
+                                remove(inOrder[0].getValue());
 
                                 parent.setRight(next);
                                 System.out.println(parent.getValue() + " -> " + next.getValue());
@@ -294,6 +292,42 @@ public class BinBaum {
         int left = this.count(n.getLeft());
         int right = this.count(n.getRight());
         return left + right + 1;
+    }
+
+    public void preOrderPrint() {
+        preOrderPrint(this.root);
+    }
+
+    private void preOrderPrint(Node n) {
+        if (n != null) {
+            System.out.println(n.getValue());
+            preOrderPrint(n.getLeft());
+            preOrderPrint(n.getRight());
+        }
+    }
+
+    public void inOrderPrint() {
+        inOrderPrint(this.root);
+    }
+
+    private void inOrderPrint(Node n) {
+        if (n != null) {
+            inOrderPrint(n.getLeft());
+            System.out.println(n.getValue());
+            inOrderPrint(n.getRight());
+        }
+    }
+
+    public void postOrderPrint() {
+        postOrderPrint(this.root);
+    }
+
+    private void postOrderPrint(Node n) {
+        if (n != null) {
+            postOrderPrint(n.getLeft());
+            postOrderPrint(n.getRight());
+            System.out.println(n.getValue());
+        }
     }
 
     public void printTree() {
