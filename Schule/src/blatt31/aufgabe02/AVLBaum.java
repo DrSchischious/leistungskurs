@@ -398,22 +398,25 @@ public class AVLBaum {
         Node parent = getParent(n);
 
         if (parent.getRight() == n) {
-            n.getRight().setLeft(n);
-            parent.setRight(n.getRight()); //44 -> 92
-            parent.getRight().setLeft(n);
-            n.setRight(null);
-
+            parent.setRight(n.getRight());
         } else {
-            //TODO: Case
-            n.getRight().setLeft(n);
-            parent.setRight(n.getRight()); //44 -> 92
-            parent.getRight().setLeft(n);
-            n.setRight(null);
+            parent.setLeft(n.getRight());
         }
-
+        n.getRight().setLeft(n);
+        n.setRight(null);
     }
 
-    //TODO: rotateRight
+    public void rotateRight(Node n) {
+        Node parent = getParent(n);
+
+        if (parent.getRight() == n) {
+            parent.setRight(n.getLeft());
+        } else {
+            parent.setLeft(n.getLeft());
+        }
+        n.getLeft().setRight(n);
+        n.setLeft(null);
+    }
 
     public void checkBalance(Node n) {
         //Prüfe ab hinzugefügtem Knoten alle Elternknoten bis zum Root!
@@ -430,6 +433,7 @@ public class AVLBaum {
                 if (n.getBalance() == -2) {
                     if (n.getLeft().getBalance() == -1) {
                         //TODO: LL
+                        rotateRight(n);
 
                     } else {
                         //TODO: LR
@@ -437,6 +441,7 @@ public class AVLBaum {
                     }
                 } else {
                     if (n.getRight().getBalance() == 1) {
+                        //TODO: RR
                         rotateLeft(n);
                     } else {
                         //TODO: RL
