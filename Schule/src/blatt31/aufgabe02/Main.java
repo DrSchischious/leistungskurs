@@ -30,6 +30,15 @@ public class Main {
         b.updateBalance();
         b.inOrderPrintBalance();
 
+        //Solve this Case, Big Boi
+        b.add(1);
+        b.add(2);
+        b.add(-2);
+        b.add(-3);
+        b.add(-1);
+        b.add(0);
+        //TODO: LR with more to the Tree - Solve by giving part of the tree to the other side
+
     }
 
 
