@@ -20,16 +20,12 @@ public class Main {
         b.add(18);
         b.add(1);
 
-        System.out.println(b.depth());
-        System.out.println(b.count());
-
-        b.remove(-2);
-
-
-        //b.remove(-4);
-
-        System.out.println(b.depth());
-        System.out.println(b.count());
+        System.out.println("PreOrder");
+        b.preOrderPrint();
+        System.out.println("InOrder");
+        b.inOrderPrint();
+        System.out.println("PostOrder");
+        b.postOrderPrint();
 
 
 

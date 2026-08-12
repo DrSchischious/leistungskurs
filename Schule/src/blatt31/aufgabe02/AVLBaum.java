@@ -1,14 +1,14 @@
-package blatt30.aufgabe02;
+package blatt31.aufgabe02;
 
-public class BinBaum {
+public class AVLBaum {
 
     private Node root;
 
-    public BinBaum() {
+    public AVLBaum() {
         this.root = null;
     }
 
-    public BinBaum(Node root) {
+    public AVLBaum(Node root) {
         this.root = root;
     }
 
@@ -318,6 +318,18 @@ public class BinBaum {
         }
     }
 
+    public void inOrderPrintBalance() {
+        inOrderPrintBalance(this.root);
+    }
+
+    private void inOrderPrintBalance(Node n) {
+        if (n != null) {
+            inOrderPrintBalance(n.getLeft());
+            System.out.println("(" + n.getValue() + ") = " + n.getBalance());
+            inOrderPrintBalance(n.getRight());
+        }
+    }
+
     public void postOrderPrint() {
         postOrderPrint(this.root);
     }
@@ -335,6 +347,116 @@ public class BinBaum {
         System.out.println(t+t+t+t+t+this.root+t+t+t+t+t);
         System.out.println(t+t+t+this.root.getLeft()+t+t+t+t+this.root.getRight()+t+t);
         System.out.println(t+t+this.root.getLeft().getLeft()+t+t+this.root.getLeft().getRight()+t+t+this.root.getRight().getLeft()+t+t+this.root.getRight().getRight()+t+t);
+
+    }
+
+    public void updateBalance() {
+        if (this.root == null) {
+
+        } else {
+            updateBalance(this.root);
+        }
+
+    }
+
+    public void updateBalance(Node n) {
+        if (n == null) {
+
+        } else {
+            //Get Balance
+            int l = depth(n.getLeft());
+
+            int r = depth(n.getRight());
+
+            n.setBalance(r-l);
+
+
+            updateBalance(n.getLeft());
+            updateBalance(n.getRight());
+        }
+    }
+
+    public Node getParent(Node n) {
+        Node search = this.root;
+        while (search != null) {
+            if (search.getLeft() == n) {
+                return search;
+            }
+            if (search.getRight() == n) {
+                return search;
+            }
+            if (n.getValue() > search.getValue()) {
+                search = search.getRight();
+            } else {
+                search = search.getLeft();
+            }
+        }
+        return null;
+    }
+
+    public void rotateLeft(Node n) {
+        Node parent = getParent(n);
+
+        if (parent.getRight() == n) {
+            parent.setRight(n.getRight());
+        } else {
+            parent.setLeft(n.getRight());
+        }
+        n.getRight().setLeft(n);
+        n.setRight(null);
+    }
+
+    public void rotateRight(Node n) {
+        Node parent = getParent(n);
+
+        if (parent.getRight() == n) {
+            parent.setRight(n.getLeft());
+        } else {
+            parent.setLeft(n.getLeft());
+        }
+        n.getLeft().setRight(n);
+        n.setLeft(null);
+    }
+
+    public void checkBalance(Node n) {
+        //Prüfe ab hinzugefügtem Knoten alle Elternknoten bis zum Root!
+        //Wenn ich den Root ohne Probleme erreiche, dann ist alles perfekt.
+        //Anderenfalls muss ich rotieren
+        updateBalance();
+
+        while (n != this.root) {
+            if (n.getBalance() < -1 || n.getBalance() > 1) {
+                //Rotation at n (Case!)
+                System.out.println("Unbalanciert an " + n);
+
+                //Get Case!
+                if (n.getBalance() == -2) {
+                    if (n.getLeft().getBalance() == -1) {
+                        //TODO: LL
+                        rotateRight(n);
+
+                    } else {
+                        //TODO: LR
+
+                    }
+                } else {
+                    if (n.getRight().getBalance() == 1) {
+                        //TODO: RR
+                        rotateLeft(n);
+                    } else {
+                        //TODO: RL
+                    }
+                }
+                break;
+            } else {
+                n = getParent(n);
+            }
+        }
+
+
+
+
+
 
     }
 
