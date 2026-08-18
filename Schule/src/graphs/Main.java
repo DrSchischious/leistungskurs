@@ -181,6 +181,17 @@ public class Main {
         sg.start();
     }
 
+    public static void test4() {
+        SchGraphs sg = new SchGraphs();
+        Graph g = new Graph(false);
+        g.addVertex();
+        g.addVertex();
+        g.addVertex();
+        g.addVertex();
+        g.addVertex();
+
+    }
+
     public static void main(String[] args) {
         //test2();
         test3();

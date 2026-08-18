@@ -107,7 +107,7 @@ public class Graph {
         int z = 0;
         for (int i = 0; i < adjazenzmatrix.length; i++) {
             if (adjazenzmatrix[node][i] > 0) {
-                neighbours[z] = adjazenzmatrix[node][i];
+                neighbours[z] = i;
                 z++;
             }
         }
