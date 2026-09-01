@@ -36,6 +36,7 @@ public class FloydWarshall {
             for (int x = 0; x < g.size(); x++) {
                 for (int z = 0; z < g.size(); z++) {
                     if (wege[x][y][0] + wege[y][z][0] < wege[x][z][0]) {
+                        //System.out.println("Found better way from " + x + " to " + z + " via " + y);
                         wege[x][z][0] = wege[x][y][0] + wege[y][z][0];
                         wege[x][z][1] = wege[y][z][1];
                     }
