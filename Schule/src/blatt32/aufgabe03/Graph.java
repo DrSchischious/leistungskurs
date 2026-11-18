@@ -17,6 +17,16 @@ public class Graph {
         this.adjazenzmatrix = new int[size][size];
     }
 
+    public Graph(Graph g) {
+        this(g.size());
+        int[][] copy = g.getAdjacencyMatrix();
+        for (int i = 0; i < this.size();i++) {
+            for (int j = 0; j < this.size(); j++) {
+                this.adjazenzmatrix[i][j] = copy[i][j];
+            }
+        }
+    }
+
     public void addVertex() {
         int[][] adj = new int[this.adjazenzmatrix.length + 1][this.adjazenzmatrix.length + 1];
 
@@ -41,6 +51,22 @@ public class Graph {
             this.adjazenzmatrix[to][from] = weight;
         }
     }
+
+    public void reduceEdge(int from, int to, int weight) {
+        if (from == to || from < 0 || to < 0 || to >= adjazenzmatrix.length || from >= adjazenzmatrix.length || weight < 0) {
+            throw new IllegalArgumentException();
+        }
+        this.adjazenzmatrix[from][to] -= weight;
+    }
+
+    public void improveEdge(int from, int to, int weight) {
+        if (from == to || from < 0 || to < 0 || to >= adjazenzmatrix.length || from >= adjazenzmatrix.length || weight < 0) {
+            throw new IllegalArgumentException();
+        }
+        this.adjazenzmatrix[from][to] += weight;
+    }
+
+
 
     public void addEdge(int from, int to, int weight) {
         this.addEdge(from, to, weight, false);

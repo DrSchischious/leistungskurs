@@ -213,11 +213,69 @@ public class Main {
         g.exportGraph("graph08");
     }
 
+    public static Graph createRandomGraph(int n, int k, double ws, int min, boolean isDirected) {
+        Graph g = new Graph(n);
+        int c = 0;
+        while (Math.random() < ws || c < min) {
+            c++;
+            int x = (int) (Math.random() * n);
+            int y = (int) (Math.random() * n);
+            while (x == y) {
+                y = (int) (Math.random() * n);
+            }
+            int weight = (int) (Math.random() * k) + 1;
+            if (isDirected) {
+                g.addEdge(x, y, weight);
+            }
+            else {
+                g.addEdge(x, y, weight);
+                g.addEdge(y, x, weight);
+            }
+        }
+        return g;
+    }
+
+    public static void graph9() {
+        Graph g = new Graph(6);
+        g.addEdge(0,7,2);
+        g.addEdge(0,8,5);
+
+        g.addEdge(1,3,2);
+        g.addEdge(1,9,4);
+        g.addEdge(1,10,4);
+
+        g.addEdge(2,9,1);
+        g.addEdge(2,5,2);
+
+        g.addEdge(3,11,1);
+
+        g.addEdge(4,11,9);
+        g.addEdge(4,6,4);
+        g.addEdge(4,8,2);
+        g.addEdge(4,9,4);
+
+        g.addEdge(5,9,3);
+
+        g.addEdge(6,8,4);
+        g.addEdge(6,7,2);
+
+        g.addEdge(8,11,11);
+
+        g.addEdge(9,10,5);
+
+        g.exportGraph("graph08");
+    }
+
 
 
 
 
     public static void main(String[] args) {
-        graph8();
+        Graph g = createRandomGraph(14,10,0.80, 14, false);
+        g.exportGraph("examGraph05");
+
+        SchGraphs sg = new SchGraphs();
+        sg.step(g.getAdjacencyMatrix());
+        sg.start();
     }
 }

@@ -47,8 +47,6 @@ public class GraphSuche {
 
 
 
-
-
         Stapel<Integer> stack = new Stapel<Integer>();
         boolean[] visited = new boolean[g.size()];
         int[] from = new int[g.size()];

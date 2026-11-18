@@ -189,8 +189,8 @@ public class Main {
         g.addVertex();
         g.addVertex();
         g.addVertex();
-
     }
+
 
     public static void main(String[] args) {
         //test2();
