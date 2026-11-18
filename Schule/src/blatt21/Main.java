@@ -2,6 +2,7 @@ package blatt21;
 
 import blatt14.MultiArrays;
 
+
 public class Main {
     public static void main(String[] args) {
         Matrix m = new Matrix();
@@ -9,5 +10,7 @@ public class Main {
         MultiArrays.print2DArray(m.values);
         m.solve();
         MultiArrays.print2DArray(m.values);
+
+
     }
 }
