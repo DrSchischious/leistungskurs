@@ -32,6 +32,7 @@ public class RegisterClient {
     public void communicate(Socket client) throws IOException {
 
         MessageHandler mh = new MessageHandler(client);
+        mh.setMode(4);
         String[] received = mh.receiveMessage();
         String[] protocols = new String[]{"ACC","NAC"};
 
@@ -54,12 +55,13 @@ public class RegisterClient {
             choice = sc.nextInt();
 
             if (choice == 1) {
+                mh.sendMessage("REG","Register");
                 String username;
                 String password;
 
                 while (true) {
                     System.out.println("Wähle einen Usernamen:");
-                    username = sc.nextLine();
+                    username = sc.next();
 
                     mh.sendMessage("NAM",username);
 
@@ -76,7 +78,7 @@ public class RegisterClient {
 
                 while (true) {
                     System.out.println("Wähle ein geeignetes Passwort. (Mindestens ein Buchstabe und mindestens eine Ziffer");
-                    password = sc.nextLine();
+                    password = sc.next();
                     mh.sendMessage("PWD",password);
                     received = mh.receiveMessage();
                     mh.checkProtocols(received, protocols);
@@ -91,10 +93,12 @@ public class RegisterClient {
 
 
             } else if (choice == 2) {
+                mh.sendMessage("LOG","Login");
                 System.out.println("Gib deinen Usernamen an.");
-                String username = sc.nextLine();
+                String username = sc.next();
                 System.out.println("Gib dein Passwort ein.");
-                String password = sc.nextLine();
+                String password = sc.next();
+
                 mh.sendMessage("NAM",username);
                 mh.sendMessage("PWD",password);
 
@@ -110,9 +114,12 @@ public class RegisterClient {
 
 
             } else if (choice == 3 && loggedIn == true) {
+
                 System.out.println("Gib deine neue Willkommensnachricht an.");
-                String welcome = sc.nextLine();
+                String welcome = sc.next();
                 mh.sendMessage("ANC",welcome);
+                received = mh.receiveMessage();
+                mh.checkProtocol(received,"ACC");
 
             } else if (choice == 5) {
                 mh.sendMessage("OFF","Ausloggen.");
@@ -121,8 +128,10 @@ public class RegisterClient {
 
                 System.out.println("Du wurdest erfolgreich ausgeloggt.");
                 loggedIn = false;
+
                 sc.close();
                 client.close();
+                break;
 
 
             } else {

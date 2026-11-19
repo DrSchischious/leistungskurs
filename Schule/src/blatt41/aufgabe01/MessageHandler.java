@@ -28,10 +28,11 @@ public class MessageHandler {
 
     public MessageHandler(Socket socket) throws IOException {
         this.setSocket(socket);
+        this.mode = SHOW_ALL;
     }
 
     public void setMode(int mode) {
-        if (mode < SHOW_NOTHING || mode > SHOW_RECEIVED) {
+        if (mode < SHOW_NOTHING || mode > SHOW_ALL) {
             throw new IllegalArgumentException("Invalid mode");
         }
         this.mode = mode;
@@ -78,7 +79,7 @@ public class MessageHandler {
 
 
     public void setSocket(Socket socket) throws IOException {
-        if (socket == null) {
+        if (this.socket == null) {
             this.socket = socket;
             this.out = new PrintWriter(socket.getOutputStream(), true);
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -97,17 +98,19 @@ public class MessageHandler {
 
     public String[] receiveMessage() throws IOException {
         String s = in.readLine();
-        if (mode == SHOW_ALL || mode == SHOW_RECEIVED) {
+        if (mode == SHOW_ALL || mode == SHOW_ALL) {
             System.out.println("<--: " + s);
         }
         if (isValid(s)) {
-            return s.split("|");
+
+            return new String[]{s.substring(0,s.indexOf("|")), s.substring(s.indexOf("|")+1,s.length())};
         } else {
             return null;
         }
     }
 
     public void checkProtocol(String[] message, String protocol) throws IOException {
+
         if (!message[0].equals(protocol)) {
             this.socket.close();
             throw new IOException();
