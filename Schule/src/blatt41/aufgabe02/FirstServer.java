@@ -1,6 +1,7 @@
 package blatt41.aufgabe02;
 
-import blatt41.aufgabe01.Nachricht;
+import blatt41.aufgabe01.MessageHandler;
+
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,34 +22,23 @@ public class FirstServer {
     }
 
     public void communicate(Socket client) throws IOException {
-        Nachricht n = new Nachricht("GRE","Hallo");
-        n.sendMessage(client);
+        MessageHandler mh = new MessageHandler(client);
 
-        Nachricht m = n.receiveMessage(client);
-        if (!m.getProtokoll().equals("GRE")) {
-            client.close();
-            return;
-        }
-        System.out.println(m.prepareMessage());
+        mh.sendMessage("GRE", "Hallo");
 
-        n.setMessage("QST","Wie geht es dir?");
-        n.sendMessage(client);
+        String[] received = mh.receiveMessage();
+        mh.checkProtocol(received, "GRE");
 
-        m = n.receiveMessage(client);
-        if (!m.getProtokoll().equals("ANS")) {
-            client.close();
-            return;
-        }
+        mh.sendMessage("QST","Wie geht es dir?");
 
-        System.out.println(m.prepareMessage());
+        received = mh.receiveMessage();
+        mh.checkProtocol(received, "ANS");
 
-        n.setMessage("FIN","Danke.");
+        mh.sendMessage("FIN","Danke");
 
-        m = n.receiveMessage(client);
-        if (!m.getProtokoll().equals("FIN")) {
-            client.close();
-            return;
-        }
+        received = mh.receiveMessage();
+        mh.checkProtocol(received, "FIN");
+
         System.out.println("Kommunikation erfolgreich beendet.");
         client.close();
 
